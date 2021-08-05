@@ -1,0 +1,73 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.connectsdk.sampler"
+4    android:versionCode="12"
+5    android:versionName="1.6.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="10"
+8-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml
+9        android:targetSdkVersion="22" />
+9-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:7:5-66
+11-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:7:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:8:5-78
+12-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:8:22-76
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+13-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:9:5-75
+13-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:9:22-73
+14    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+14-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:10:5-85
+14-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:10:22-83
+15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+15-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:11:5-81
+15-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:11:22-78
+16    <uses-permission android:name="android.permission.GET_TASKS" />
+16-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:12:5-68
+16-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:12:22-65
+17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+17-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:13:5-80
+17-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:13:22-77
+18    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+19
+20    <application
+20-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:15:5-33:19
+21        android:name="com.connectsdk.sampler.MainApplication"
+21-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:16:9-62
+22        android:allowBackup="true"
+22-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:17:9-35
+23        android:debuggable="true"
+24        android:icon="@drawable/ic_launcher"
+24-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:18:9-45
+25        android:label="@string/app_name"
+25-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:19:9-41
+26        android:testOnly="true"
+27        android:theme="@style/AppTheme" >
+27-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:20:9-40
+28        <activity
+28-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:22:9-32:20
+29            android:name="com.connectsdk.sampler.MainActivity"
+29-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:23:13-63
+30            android:label="@string/app_name"
+30-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:25:13-45
+31            android:screenOrientation="portrait"
+31-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:26:13-49
+32            android:windowSoftInputMode="stateHidden" >
+32-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:24:13-54
+33            <intent-filter>
+33-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:27:13-31:29
+34                <action android:name="android.intent.action.MAIN" />
+34-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:28:17-69
+34-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:28:25-66
+35
+36                <category android:name="android.intent.category.LAUNCHER" />
+36-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:30:17-77
+36-->/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/AndroidManifest.xml:30:27-74
+37            </intent-filter>
+38        </activity>
+39    </application>
+40
+41</manifest>
