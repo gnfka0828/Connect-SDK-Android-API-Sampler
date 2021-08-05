@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.gnfka0828:test_connectsdk:5eb5353baa@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/90517d858c984225ba3d7443031ad722/transformed/test_connectsdk-5eb5353baa/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/90517d858c984225ba3d7443031ad722/transformed/test_connectsdk-5eb5353baa/jars/libs/Java-WebSocket-1.3.7.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/90517d858c984225ba3d7443031ad722/transformed/test_connectsdk-5eb5353baa/jars/libs/javax.jmdns_3.4.1-patch2.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/90517d858c984225ba3d7443031ad722/transformed/test_connectsdk-5eb5353baa/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/90517d858c984225ba3d7443031ad722/transformed/test_connectsdk-5eb5353baa/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.gnfka0828/test_connectsdk/5eb5353baa/22ac10bd00ddec61ffe5c4a201d739d3397f71a9/test_connectsdk-5eb5353baa-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

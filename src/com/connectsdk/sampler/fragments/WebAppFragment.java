@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
@@ -46,11 +48,13 @@ import com.connectsdk.service.sessions.WebAppSession.WebAppPinStatusListener;
 import com.connectsdk.service.sessions.WebAppSessionListener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class WebAppFragment extends BaseFragment {
     public final static String TAG = "Connect SDK";
@@ -505,7 +509,7 @@ public class WebAppFragment extends BaseFragment {
 
                 InputStream is = conn.getInputStream(); //inputStream 값 가져오기
 
-                sendMessageCurWebSession(BitmapToString(BitmapFactory.decodeStream(is)));
+                sendCurWebSession(BitmapToString(BitmapFactory.decodeStream(is)));
             } catch (MalformedURLException e){
                 e.printStackTrace();
             } catch (IOException e){
@@ -515,29 +519,71 @@ public class WebAppFragment extends BaseFragment {
     };
 
     public void getImageInPhone() {    // 이미지 선택 누르면 실행됨 이미지 고를 갤러리 오픈
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 101);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // 갤러리
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // 갤러리에서 사진을 고른 후의 동작
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 101) {
             if (resultCode == Activity.RESULT_OK) {
-                Uri fileUri = data.getData();
-                ContentResolver resolver = mContext.getApplicationContext().getContentResolver();
-                try {
-                    InputStream is = resolver.openInputStream(fileUri);
+                if (data == null) {   // 어떤 이미지도 선택하지 않은 경우
+                    Toast.makeText(mContext.getApplicationContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
+                } else {  // 이미지를 하나라도 선택한 경우
+                    ContentResolver resolver = mContext.getApplicationContext().getContentResolver();
+                    InputStream is = null;
 
-                    sendMessageCurWebSession(BitmapToString(BitmapFactory.decodeStream(is)));
-                    is.close();   // 스트림 닫아주기
-                    Toast.makeText(mContext.getApplicationContext(), "파일 불러오기 성공", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Toast.makeText(mContext.getApplicationContext(), "파일 불러오기 실패", Toast.LENGTH_SHORT).show();
+                    if ( data.getClipData() == null ) { // 이미지 1개 선택
+                        try {
+                            is = resolver.openInputStream(data.getData());
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        sendCurWebSession(BitmapToString(BitmapFactory.decodeStream(is)));
+                    } else { // 이미지 여러 개 선택 시
+                        ClipData clip = data.getClipData();
+
+                        for (int i = 0; i < clip.getItemCount(); i++) {
+                            try {
+                                is = resolver.openInputStream(clip.getItemAt(i).getUri());
+                                sendCurWebSession(BitmapToString(BitmapFactory.decodeStream(is)));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            else if (resultCode == Activity.DEFAULT_KEYS_DISABLE) {
+                Toast.makeText(mContext.getApplicationContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
+            }
         }
+
+//        if (requestCode == 101) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                Uri fileUri = data.getData();
+//                ContentResolver resolver = mContext.getApplicationContext().getContentResolver();
+//                try {
+//                    InputStream is = resolver.openInputStream(fileUri);
+//
+//                    sendMessageCurWebSession(BitmapToString(BitmapFactory.decodeStream(is)));
+//                    is.close();   // 스트림 닫아주기
+//                    Toast.makeText(mContext.getApplicationContext(), "파일 불러오기 성공", Toast.LENGTH_SHORT).show();
+//                } catch (Exception e) {
+//                    Toast.makeText(mContext.getApplicationContext(), "파일 불러오기 실패", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }
     }
 
     public View.OnClickListener sendMessage = new View.OnClickListener() {
@@ -545,21 +591,36 @@ public class WebAppFragment extends BaseFragment {
         public void onClick(View arg0) {
             String message = "This is an Android test message.";
 
-            sendMessageCurWebSession(message);
+            sendCurWebSession(message);
         }
     };
 
-    public void sendMessageCurWebSession(String message) {
+    public void sendCurWebSession(String message) {
         mWebAppSession.sendMessage(message, new ResponseListener<Object>() {
             @Override
             public void onSuccess(Object response) {
                 testResponse =  new TestResponseObject(true, TestResponseObject.SuccessCode, TestResponseObject.Sent_Message);
-                Log.d(TAG, "Sent message : " + response);
+                Log.d(TAG, "Sent : " + response);
             }
 
             @Override
             public void onError(ServiceCommandError error) {
-                Log.e(TAG, "Error sending message : " + error);
+                Log.e(TAG, "Error sending : " + error);
+            }
+        });
+    }
+
+    public void sendCurWebSession(JSONObject message) {
+        mWebAppSession.sendMessage(message, new ResponseListener<Object>() {
+            @Override
+            public void onSuccess(Object response) {
+                testResponse =  new TestResponseObject(true, TestResponseObject.SuccessCode, TestResponseObject.Sent_JSON);
+                Log.d(TAG, "Sent : " + response);
+            }
+
+            @Override
+            public void onError(ServiceCommandError error) {
+                Log.e(TAG, "Error sending : " + error);
             }
         });
     }
@@ -590,19 +651,7 @@ public class WebAppFragment extends BaseFragment {
                 return;
             }
 
-            mWebAppSession.sendMessage(message, new ResponseListener<Object>() {
-
-                @Override
-                public void onSuccess(Object response) {
-                	testResponse =  new TestResponseObject(true, TestResponseObject.SuccessCode, TestResponseObject.Sent_JSON);
-                    Log.d(TAG, "Sent message : " + response);
-                }
-
-                @Override
-                public void onError(ServiceCommandError error) {
-                    Log.e(TAG, "Error sending message : " + error);
-                }
-            });
+            sendCurWebSession(message);
         }
     };
 

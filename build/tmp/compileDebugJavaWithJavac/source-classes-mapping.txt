@@ -8,12 +8,12 @@ com/connectsdk/sampler/fragments/WebAppFragment.java
  com.connectsdk.sampler.fragments.WebAppFragment$13
  com.connectsdk.sampler.fragments.WebAppFragment$14
  com.connectsdk.sampler.fragments.WebAppFragment$15
- com.connectsdk.sampler.fragments.WebAppFragment$15$1
- com.connectsdk.sampler.fragments.WebAppFragment$15$1$1
- com.connectsdk.sampler.fragments.WebAppFragment$15$1$2
- com.connectsdk.sampler.fragments.WebAppFragment$15$2
  com.connectsdk.sampler.fragments.WebAppFragment$16
  com.connectsdk.sampler.fragments.WebAppFragment$16$1
+ com.connectsdk.sampler.fragments.WebAppFragment$16$1$1
+ com.connectsdk.sampler.fragments.WebAppFragment$16$1$2
+ com.connectsdk.sampler.fragments.WebAppFragment$17
+ com.connectsdk.sampler.fragments.WebAppFragment$17$1
  com.connectsdk.sampler.fragments.WebAppFragment$2
  com.connectsdk.sampler.fragments.WebAppFragment$2$1
  com.connectsdk.sampler.fragments.WebAppFragment$3
