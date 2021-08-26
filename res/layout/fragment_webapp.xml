@@ -15,12 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
-            <Button
-                android:id="@+id/launchWebAppButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Launch" />
+<!--            <Button-->
+<!--                android:id="@+id/launchWebAppButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Launch" />-->
 
             <Button
                 android:id="@+id/joinWebAppButton"
@@ -50,44 +50,44 @@
                 android:text="Send JSON" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal" >
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center_horizontal" >-->
 
-            <Button
-                android:id="@+id/leaveWebAppButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Leave WebApp" />
+<!--            <Button-->
+<!--                android:id="@+id/leaveWebAppButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Leave WebApp" />-->
 
-            <Button
-                android:id="@+id/closeWebAppButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Close WebApp" />
-        </LinearLayout>
+<!--            <Button-->
+<!--                android:id="@+id/closeWebAppButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Close WebApp" />-->
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-            <Button
-                android:id="@+id/pinWebAppButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pin Web App" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal">-->
+<!--            <Button-->
+<!--                android:id="@+id/pinWebAppButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Pin Web App" />-->
 
-            <Button
-                android:id="@+id/unPinWebAppButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Unpin Web App"/>
-        </LinearLayout>
+<!--            <Button-->
+<!--                android:id="@+id/unPinWebAppButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Unpin Web App"/>-->
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,15 +109,49 @@
                 android:text="Send FS Image"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/requestGalleryTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Request Gallery Theme"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/stopPlayingThemeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Stop Playing Theme"/>
+
+            <Button
+                android:id="@+id/startPlayingThemeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Start Playing Theme(ex: Masterpieces)"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 
-    <TextView android:id="@+id/responseMessageTextView"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Messages Received"
-              android:layout_gravity="center_horizontal"
-              android:gravity="center_horizontal"
-              android:layout_marginTop="20dp"/>
+<!--    <TextView android:id="@+id/responseMessageTextView"-->
+<!--              android:layout_width="wrap_content"-->
+<!--              android:layout_height="wrap_content"-->
+<!--              android:text="Messages Received"-->
+<!--              android:layout_gravity="center_horizontal"-->
+<!--              android:gravity="center_horizontal"-->
+<!--              android:layout_marginTop="20dp"/>-->
 
 </LinearLayout>

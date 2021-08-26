@@ -456,7 +456,6 @@ id checkbox
 id chronometer
 id clickButton
 id closeButton
-id closeWebAppButton
 id collapseActionView
 id contentPanel
 id custom
@@ -493,8 +492,6 @@ id itemSubTitle
 id itemTitle
 id joinWebAppButton
 id jumpButton
-id launchWebAppButton
-id leaveWebAppButton
 id leftButton
 id line1
 id line3
@@ -529,7 +526,6 @@ id pager
 id parentPanel
 id pauseButton
 id photoButton
-id pinWebAppButton
 id playButton
 id playlistButton
 id positionText
@@ -538,7 +534,7 @@ id previousButton
 id progress_circular
 id progress_horizontal
 id radio
-id responseMessageTextView
+id requestGalleryTheme
 id rewindButton
 id rightButton
 id screen
@@ -566,8 +562,10 @@ id split_action_bar
 id src_atop
 id src_in
 id src_over
+id startPlayingThemeButton
 id status_bar_latest_event_content
 id stopButton
+id stopPlayingThemeButton
 id stream_duration
 id stream_position
 id stream_seek_bar
@@ -583,7 +581,6 @@ id title_template
 id toastButton
 id topPanel
 id trackpadView
-id unPinWebAppButton
 id up
 id upButton
 id useLogo

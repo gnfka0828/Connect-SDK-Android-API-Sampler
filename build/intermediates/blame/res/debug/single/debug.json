@@ -12,12 +12,12 @@
         "source": "/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/res/drawable-xxhdpi/drawer_shadow.9.png"
     },
     {
-        "merged": "/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/build/intermediates/res/merged/debug/drawable-xhdpi_icon_17183.png.flat",
-        "source": "/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/res/drawable-xhdpi/icon_17183.png"
-    },
-    {
         "merged": "/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/build/intermediates/res/merged/debug/drawable-xhdpi_icon_15307.png.flat",
         "source": "/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/res/drawable-xhdpi/icon_15307.png"
+    },
+    {
+        "merged": "/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/build/intermediates/res/merged/debug/drawable-xhdpi_icon_17183.png.flat",
+        "source": "/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/res/drawable-xhdpi/icon_17183.png"
     },
     {
         "merged": "/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/build/intermediates/res/merged/debug/layout_fragment_media_player.xml.flat",
