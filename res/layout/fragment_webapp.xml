@@ -94,12 +94,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-            <Button
-                android:id="@+id/sendWebImageButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Send Web Image"/>
+<!--            <Button-->
+<!--                android:id="@+id/sendWebImageButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Send Web Image"/>-->
 
             <Button
                 android:id="@+id/sendFSImageButton"
@@ -141,7 +141,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Start Playing Theme(ex: Masterpieces)"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/startPlayingCustomThemeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Start Playing Custom Theme(Not implemented)"/>
         </LinearLayout>
     </LinearLayout>
 

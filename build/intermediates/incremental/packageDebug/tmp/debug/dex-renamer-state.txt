@@ -1,4 +1,4 @@
-#Thu Aug 26 16:45:04 KST 2021
+#Tue Aug 31 19:01:44 KST 2021
 base.0=/home/hooramseo/android/hooram/Connect-SDK-Android-API-Sampler/build/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

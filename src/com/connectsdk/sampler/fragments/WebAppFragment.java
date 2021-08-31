@@ -60,20 +60,17 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class WebAppFragment extends BaseFragment {
+
     public final static String TAG = "Connect SDK";
-    //public Button launchWebAppButton;
     public Button joinWebAppButton;
-    //public Button leaveWebAppButton;
-    //public Button closeWebAppButton;
     public Button sendMessageButton;
     public Button sendJSONButton;
-    //public Button pinWebAppButton;
-    //public Button unPinWebAppButton;
-    public Button sendWebImageButton;
+    //public Button sendWebImageButton;
     public Button sendFSImageButton;
     public Button requestGalleryThemeButton;
     public Button stopPlayingThemeButton;
     public Button startPlayingThemeButton;
+    public Button startPlayingCustomThemeButton;
     public TestResponseObject testResponse;
 
     private final static String WEBOSID = "webOS TV";
@@ -82,15 +79,9 @@ public class WebAppFragment extends BaseFragment {
 
     static boolean isLaunched = false;
 
-    //TextView responseMessageTextView;
-    LaunchSession runningAppSession;
 
     WebAppSession mWebAppSession;
-    ServiceSubscription<WebAppPinStatusListener> isWebAppPinnedSubscription;
     String webAppId = null;
-
-    ArrayAdapter<String> arrayAdapter;
-    ArrayList<String> arrayList;
 
     public WebAppFragment() {};
 
@@ -107,38 +98,28 @@ public class WebAppFragment extends BaseFragment {
         View rootView = inflater.inflate(
                 R.layout.fragment_webapp, container, false);
 
-        //launchWebAppButton = (Button) rootView.findViewById(R.id.launchWebAppButton);
         joinWebAppButton = (Button) rootView.findViewById(R.id.joinWebAppButton);
-        //leaveWebAppButton = (Button) rootView.findViewById(R.id.leaveWebAppButton);
-        //closeWebAppButton = (Button) rootView.findViewById(R.id.closeWebAppButton);
         sendMessageButton = (Button) rootView.findViewById(R.id.sendMessageButton);
         sendJSONButton = (Button) rootView.findViewById(R.id.sendJSONButton);
-        //responseMessageTextView = (TextView) rootView.findViewById(R.id.responseMessageTextView);
 
-        //pinWebAppButton = (Button) rootView.findViewById(R.id.pinWebAppButton);
-        //unPinWebAppButton = (Button) rootView.findViewById(R.id.unPinWebAppButton);
-
-        sendWebImageButton = (Button) rootView.findViewById(R.id.sendWebImageButton);
+        //sendWebImageButton = (Button) rootView.findViewById(R.id.sendWebImageButton);
         sendFSImageButton = (Button) rootView.findViewById(R.id.sendFSImageButton);
 
         requestGalleryThemeButton = (Button) rootView.findViewById(R.id.requestGalleryTheme);
         stopPlayingThemeButton = (Button) rootView.findViewById(R.id.stopPlayingThemeButton);
         startPlayingThemeButton = (Button) rootView.findViewById(R.id.startPlayingThemeButton);
+        startPlayingCustomThemeButton = (Button) rootView.findViewById(R.id.startPlayingCustomThemeButton);
 
         buttons = new Button[]{
-                //launchWebAppButton,
                 joinWebAppButton,
-                //leaveWebAppButton,
-                //closeWebAppButton,
                 sendMessageButton,
                 sendJSONButton,
-                //pinWebAppButton,
-                //unPinWebAppButton,
-                sendWebImageButton,
+                //sendWebImageButton,
                 sendFSImageButton,
                 requestGalleryThemeButton,
                 stopPlayingThemeButton,
-                startPlayingThemeButton
+                startPlayingThemeButton,
+                startPlayingCustomThemeButton
         };
 
         return rootView;
@@ -148,54 +129,30 @@ public class WebAppFragment extends BaseFragment {
     public void enableButtons() {
         super.enableButtons();
 
-//        if (getTv().hasCapability(WebAppLauncher.Launch)) {
-//            launchWebAppButton.setOnClickListener(launchWebApp);
-//        }
-//        else {
-//            disableButton(launchWebAppButton);
-//        }
-
         joinWebAppButton.setEnabled(getTv().hasCapability(WebAppLauncher.Launch));
         joinWebAppButton.setOnClickListener(joinWebApp);
-
-        //leaveWebAppButton.setEnabled(getTv().hasCapability(WebAppLauncher.Disconnect));
-        //leaveWebAppButton.setOnClickListener(leaveWebApp);
-
-        if (getTv().hasCapability(WebAppLauncher.Close)) {
-            //closeWebAppButton.setOnClickListener(closeWebApp);
-        }
 
         if (getTv().hasCapability(WebAppLauncher.Message_Send)) {
             sendMessageButton.setOnClickListener(sendMessage);
             sendJSONButton.setOnClickListener(sendJson);
-            sendWebImageButton.setOnClickListener(sendWebImage);
+            //sendWebImageButton.setOnClickListener(sendWebImage);
             sendFSImageButton.setOnClickListener(sendFSImage);
             requestGalleryThemeButton.setOnClickListener(getGalleryTheme);
             stopPlayingThemeButton.setOnClickListener(stopPlayingTheme);
             startPlayingThemeButton.setOnClickListener(startPlayingTheme);
+            startPlayingCustomThemeButton.setOnClickListener(startPlayingCustomTheme);
         }
 
-//        if (getTv().hasCapability(WebAppLauncher.Pin)) {
-//            pinWebAppButton.setOnClickListener(pinWebApp);
-//            unPinWebAppButton.setOnClickListener(unPinWebApp);
-//        }
-
-        //responseMessageTextView.setText("");
-
         if (!isLaunched) {
-            //disableButton(closeWebAppButton);
-            //disableButton(leaveWebAppButton);
             disableButton(sendMessageButton);
             disableButton(sendJSONButton);
-            disableButton(sendWebImageButton);
+            //disableButton(sendWebImageButton);
             disableButton(sendFSImageButton);
             disableButton(requestGalleryThemeButton);
             disableButton(stopPlayingThemeButton);
             disableButton(startPlayingThemeButton);
+            disableButton(startPlayingCustomThemeButton);
         }
-//        else {
-//            disableButton(launchWebAppButton);
-//        }
 
         if (getTv().getServiceByName(WEBOSID) != null)
             webAppId = "com.webos.app.igallery";
@@ -203,50 +160,7 @@ public class WebAppFragment extends BaseFragment {
             webAppId = "DDCEDE96";
         else if (getTv().getServiceByName(MULTISCREENID) != null)
             webAppId = "ConnectSDKSampler";
-
-
-//        if (getTv().hasCapability(WebAppLauncher.Pin)) {
-//            subscribeIfWebAppIsPinned();
-//        }
-//        else {
-//            disableButton(pinWebAppButton);
-//            disableButton(unPinWebAppButton);
-//        }
     }
-
-    public View.OnClickListener launchWebApp = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            if (webAppId == null)
-                return;
-
-            //launchWebAppButton.setEnabled(false);
-
-            getWebAppLauncher().launchWebApp(webAppId, new LaunchListener() {
-
-                @Override
-                public void onError(ServiceCommandError error) {
-                    Log.e("LG", "Error connecting to web app | error = " + error);
-                    //launchWebAppButton.setEnabled(true);
-                }
-
-                @Override
-                public void onSuccess(WebAppSession webAppSession) {
-                    testResponse =  new TestResponseObject(true, TestResponseObject.SuccessCode, TestResponseObject.Launched_WebAPP);
-                    webAppSession.setWebAppSessionListener(webAppListener);
-                    isLaunched = true;
-
-                    if (getTv().hasAnyCapability(WebAppLauncher.Message_Send, WebAppLauncher.Message_Receive, WebAppLauncher.Message_Receive_JSON, WebAppLauncher.Message_Send_JSON))
-                        webAppSession.connect(connectionListener);
-                    else
-                        connectionListener.onSuccess(webAppSession.launchSession);
-
-                    mWebAppSession = webAppSession;
-                }
-            });
-        }
-    };
 
     public View.OnClickListener joinWebApp = new View.OnClickListener() {
 
@@ -272,46 +186,17 @@ public class WebAppFragment extends BaseFragment {
                     mWebAppSession = webAppSession;
 
                     sendMessageButton.setEnabled(true);
-                    sendWebImageButton.setEnabled(true);
+                    //sendWebImageButton.setEnabled(true);
                     sendFSImageButton.setEnabled(true);
                     requestGalleryThemeButton.setEnabled(true);
                     stopPlayingThemeButton.setEnabled(true);
                     startPlayingThemeButton.setEnabled(true);
+                    startPlayingCustomThemeButton.setEnabled(true);
 
-                    //launchWebAppButton.setEnabled(false);
-                    //leaveWebAppButton.setEnabled(getTv().hasCapability(WebAppLauncher.Disconnect));
                     if (getTv().hasCapabilities(WebAppLauncher.Message_Send_JSON)) sendJSONButton.setEnabled(true);
-                    //if (getTv().hasCapabilities(WebAppLauncher.Close)) closeWebAppButton.setEnabled(true);
                     isLaunched = true;
                 }
             });
-        }
-    };
-
-    public View.OnClickListener leaveWebApp = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            if (mWebAppSession != null) {
-                mWebAppSession.setWebAppSessionListener(null);
-                mWebAppSession.disconnectFromWebApp();
-                mWebAppSession = null;
-
-                //launchWebAppButton.setEnabled(true);
-                joinWebAppButton.setEnabled(getTv().hasCapability(WebAppLauncher.Join));
-                sendMessageButton.setEnabled(false);
-                sendJSONButton.setEnabled(false);
-                //leaveWebAppButton.setEnabled(false);
-                //closeWebAppButton.setEnabled(false);
-
-                sendWebImageButton.setEnabled(false);
-                sendFSImageButton.setEnabled(false);
-                requestGalleryThemeButton.setEnabled(false);
-                stopPlayingThemeButton.setEnabled(false);
-                startPlayingThemeButton.setEnabled(false);
-
-                isLaunched = false;
-            }
         }
     };
 
@@ -394,98 +279,21 @@ public class WebAppFragment extends BaseFragment {
         }
     };
 
-    public View.OnClickListener pinWebApp = new View.OnClickListener() {
+    public View.OnClickListener startPlayingCustomTheme = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (getTv() != null) {
-                getWebAppLauncher().pinWebApp(webAppId, new ResponseListener<Object>() {
-
-                    @Override
-                    public void onError(ServiceCommandError error) {
-                        Log.w(TAG, "pin web app failure, " + error.getLocalizedMessage());
-                    }
-
-                    @Override
-                    public void onSuccess(Object object) {
-                        testResponse =  new TestResponseObject(true, TestResponseObject.SuccessCode, TestResponseObject.Pinned_WebAPP);
-                        Log.d(TAG, "pin web app success");
-                    }
-                });
-            }
-        }
-    };
-
-    public View.OnClickListener unPinWebApp = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            if (webAppId == null)
+            JSONObject message = null;
+            try {
+                message = new JSONObject() {{
+                    put("type", "startplaying_customtheme");
+                }};
+            } catch (JSONException e) {
                 return;
-
-            if (getTv() != null) {
-                getWebAppLauncher().unPinWebApp(webAppId, new ResponseListener<Object>() {
-
-                    @Override
-                    public void onError(ServiceCommandError error) {
-                        Log.w(TAG, "unpin web app failture, " + error.getLocalizedMessage());
-                    }
-
-                    @Override
-                    public void onSuccess(Object object) {
-                        testResponse =  new TestResponseObject(true, TestResponseObject.SuccessCode, TestResponseObject.UnPinned_WebAPP);
-                        Log.d(TAG, "unpin web app success");
-                    }
-                });
             }
+
+            sendCurWebSession(message);
         }
     };
-
-//    public void checkIfWebAppIsPinned() {
-//        if (webAppId == null)
-//            return;
-//
-//        getWebAppLauncher().isWebAppPinned( webAppId, new WebAppPinStatusListener() {
-//
-//            @Override
-//            public void onError(ServiceCommandError error) {
-//                Log.w(TAG, "isWebAppPinned failture, " + error.getLocalizedMessage());
-//            }
-//
-//            @Override
-//            public void onSuccess(Boolean status) {
-//                updatePinButton(status);
-//            }
-//        });
-//    }
-
-//    public void subscribeIfWebAppIsPinned() {
-//        if (webAppId == null)
-//            return;
-//
-//        isWebAppPinnedSubscription = getWebAppLauncher().subscribeIsWebAppPinned(webAppId, new WebAppPinStatusListener() {
-//
-//            @Override
-//            public void onError(ServiceCommandError error) {
-//                Log.w(TAG, "isWebAppPinned failure, " + error.getLocalizedMessage());
-//            }
-//
-//            @Override
-//            public void onSuccess(Boolean status) {
-//                updatePinButton(status);
-//            }
-//        });
-//    }
-
-//    public void updatePinButton(boolean status) {
-//        if (status) {
-//            pinWebAppButton.setEnabled(false);
-//            unPinWebAppButton.setEnabled(true);
-//        }
-//        else {
-//            pinWebAppButton.setEnabled(true);
-//            unPinWebAppButton.setEnabled(false);
-//        }
-//    }
 
     public WebAppSessionListener webAppListener = new WebAppSessionListener() {
 
@@ -513,17 +321,15 @@ public class WebAppFragment extends BaseFragment {
                 return;
             }
 
-            //launchWebAppButton.setEnabled(true);
             if (getTv() != null) joinWebAppButton.setEnabled(getTv().hasCapability(WebAppLauncher.Join));
             sendMessageButton.setEnabled(false);
             sendJSONButton.setEnabled(false);
-            sendWebImageButton.setEnabled(false);
+            //sendWebImageButton.setEnabled(false);
             sendFSImageButton.setEnabled(false);
             requestGalleryThemeButton.setEnabled(false);
             stopPlayingThemeButton.setEnabled(false);
             startPlayingThemeButton.setEnabled(false);
-            //leaveWebAppButton.setEnabled(false);
-            //closeWebAppButton.setEnabled(false);
+            startPlayingCustomThemeButton.setEnabled(false);
 
             mWebAppSession.setWebAppSessionListener(null);
             mWebAppSession = null;
@@ -531,40 +337,6 @@ public class WebAppFragment extends BaseFragment {
         }
     };
 
-    public ResponseListener<Object> connectionListener = new ResponseListener<Object>() {
-
-        @Override
-        public void onSuccess(Object response) {
-            if (getTv() == null)
-                return;
-
-            if (getTv().hasCapability(WebAppLauncher.Message_Send_JSON))
-                sendJSONButton.setEnabled(true);
-
-            if (getTv().hasCapability(WebAppLauncher.Message_Send))
-                sendMessageButton.setEnabled(true);
-
-            //leaveWebAppButton.setEnabled(getTv().hasCapability(WebAppLauncher.Disconnect));
-
-            //closeWebAppButton.setEnabled(true);
-            //launchWebAppButton.setEnabled(false);
-            isLaunched = true;
-        }
-
-        @Override
-        public void onError(ServiceCommandError error) {
-            sendJSONButton.setEnabled(false);
-            sendMessageButton.setEnabled(false);
-            //closeWebAppButton.setEnabled(false);
-            //launchWebAppButton.setEnabled(true);
-            isLaunched = false;
-
-            if (mWebAppSession != null) {
-                mWebAppSession.setWebAppSessionListener(null);
-                mWebAppSession.close(null);
-            }
-        }
-    };
 
     public static String BitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(); //바이트 배열을 차례대로 읽어 들이기위한 ByteArrayOutputStream클래스 선언
@@ -627,14 +399,15 @@ public class WebAppFragment extends BaseFragment {
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
-                        sendCurWebSession(BitmapToString(BitmapFactory.decodeStream(is)));
+                        sendCurWebSession("data:image/png;base64," + BitmapToString(BitmapFactory.decodeStream(is)));
                     } else { // 이미지 여러 개 선택 시
                         ClipData clip = data.getClipData();
 
                         for (int i = 0; i < clip.getItemCount(); i++) {
                             try {
                                 is = resolver.openInputStream(clip.getItemAt(i).getUri());
-                                sendCurWebSession(BitmapToString(BitmapFactory.decodeStream(is)));
+                                sendCurWebSession("data:image/png;base64," +
+                                        BitmapToString(BitmapFactory.decodeStream(is)));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -739,48 +512,11 @@ public class WebAppFragment extends BaseFragment {
         }
     };
 
-    public View.OnClickListener closeWebApp = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            //responseMessageTextView.setText("");
-
-            //closeWebAppButton.setEnabled(false);
-            sendMessageButton.setEnabled(false);
-            sendJSONButton.setEnabled(false);
-            //leaveWebAppButton.setEnabled(false);
-            isLaunched = false;
-
-            mWebAppSession.setWebAppSessionListener(null);
-            mWebAppSession.close(new ResponseListener<Object>() {
-
-                @Override
-                public void onSuccess(Object response) {
-                	testResponse =  new TestResponseObject(true, TestResponseObject.SuccessCode, TestResponseObject.Close_WebAPP);
-                    //launchWebAppButton.setEnabled(true);
-                }
-
-                @Override
-                public void onError(ServiceCommandError error) {
-                    Log.e(TAG, "Error closing web app | error = " + error);
-
-                    //launchWebAppButton.setEnabled(true);
-                }
-            });
-        }
-    };
-
     @Override
     public void disableButtons() {
         super.disableButtons();
         isLaunched = false;
 
-        //responseMessageTextView.setText("");
         webAppId = null;
     }
-
-    public void setRunningAppInfo(LaunchSession session) {
-        runningAppSession = session;
-    }
-
 }

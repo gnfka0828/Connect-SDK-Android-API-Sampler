@@ -553,7 +553,6 @@ id select_dialog_listview
 id sendFSImageButton
 id sendJSONButton
 id sendMessageButton
-id sendWebImageButton
 id shortcut
 id showCustom
 id showHome
@@ -562,6 +561,7 @@ id split_action_bar
 id src_atop
 id src_in
 id src_over
+id startPlayingCustomThemeButton
 id startPlayingThemeButton
 id status_bar_latest_event_content
 id stopButton
